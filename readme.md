@@ -18,9 +18,9 @@ Then edit the application's config/app.php file and add this to the $providers a
 
 Run the following commands:
 ```
-php artisan vendor:publish --provider=Laracrumbs\ServiceProvider --force
+php artisan vendor:publish --provider="Laracrumbs\ServiceProvider" --force
 php artisan migrate --path=vendor/blackdrago/laracrumbs/src/database/migrations/
 ```
 
 # Configuration
-Currently, Laracrumbs can be configured to look for a specific language pack when handling translations.
+Currently, Laracrumbs can be configured to look for a specific language pack when handling translations. Simply edit the config/laracrumbs.php file.
