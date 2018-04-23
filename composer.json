@@ -1,0 +1,20 @@
+{
+    "name": "blackdrago/laracrumbs",
+    "description": "Laracrumbs provides database-driven breadcrumbs for Laravel.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "K. McCormick",
+            "email": "kyliemccormick@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/framework": "5.6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laracrumbs\\": "src/"
+        }
+    }
+}  

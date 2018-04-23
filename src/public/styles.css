@@ -1,0 +1,31 @@
+/**
+ * @package Laracrumbs
+ */
+#laracrumbsWrapper {
+    color: #cccccc;
+    background-color: #000000;
+    font-family: Geneva, sans-serif;
+}
+#laracrumbsAccessNav {
+    position: absolute;
+    z-index: 9999;
+}
+#laracrumbsAccessNav ul {
+    margin: 0;
+}
+#laracrumbsAccessNav ul li{
+    display: inline;
+}
+#laracrumbsAccessNav a {
+    font-weight: 700;
+    display: block;
+    margin: 5px 0;
+    padding: 0.5em;
+    position: absolute;
+    top: -150px;
+    color: #ff0000;
+    background-color: #000000;
+}
+#laracrumbsAccessNav a:focus{
+    position: static;
+}
