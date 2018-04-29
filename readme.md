@@ -35,4 +35,7 @@ php artisan migrate --path=vendor/blackdrago/laracrumbs/src/database/migrations/
 ```
 
 # Configuration
-Currently, Laracrumbs can be configured to look for a specific language pack when handling translations. Simply edit the config/laracrumbs.php file.
+Laracrumbs have several configuration settings, including:
+
+- translation_key: a package prefix for translating language key values
+- template: the name of the Blade template to use for breadcrumbs

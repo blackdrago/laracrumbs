@@ -10,6 +10,7 @@ namespace Laracrumbs;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Blade;
+use Laracrumbs\Conductor;
 
 /**
  * ServiceProvider for Laracrumbs, a database-driven breadcrumbs package for Laravel.
@@ -56,6 +57,11 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->loadRoutesFrom($this->getSourcePath(['routes', 'web.php']));
+
+        // register Laracrumbs Conductor
+        $this->app->singleton(Conductor::class, function () {
+            return new Conductor();
+        });
     }
 
     /**
@@ -68,5 +74,15 @@ class ServiceProvider extends BaseServiceProvider
     {
         array_unshift($relpath, $this->sourceDir);
         return join(\DIRECTORY_SEPARATOR, $relpath);
+    }
+
+    /**
+     * Get the services provided by Laracrumbs ServiceProvider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [Conductor::class];
     }
 }

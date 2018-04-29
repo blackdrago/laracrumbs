@@ -32,10 +32,11 @@ class CreateLaracrumbsTable extends Migration
         }
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('route_identifier');
+            $table->string('text');
             $table->string('link')->nullable();
             $table->string('title')->nullable();
-            $table->string('route')->nullable();
+            $table->string('route_name')->nullable();
             $table->integer('parent_id')->unsigned()->nullable();
         });
     }

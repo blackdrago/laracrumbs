@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the LaracrumbsController class.
+ * Contains the AdminController class.
  *
  * @package Laracrumbs\Http\Controllers
  */
@@ -14,9 +14,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
- * LaracrumbsController handles administrative and view routes for Laracrumbs.
+ * AdminController handles administrative and preview routes for Laracrumbs.
  */
-class LaracrumbsController extends Controller
+class AdminController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
@@ -28,24 +28,25 @@ class LaracrumbsController extends Controller
      */
     public function home(Request $request)
     {
-        return view('laracrumbs::layout', [
-            'title'   => 'Laracrumbs Home',
-            'content' => 'Laracrumbs content goes here.',
-            'crumbs'  => \Laracrumbs\Models\Laracrumb::all(),
+        return view('laracrumbs::admin.layout', [
+            'title'    => trans('laracrumbs::admin.title', ['name' => config('app.name')]),
+            'template' => 'laracrumbs::admin.index'
         ]);
     }
 
     /**
-     * Administration.
+     * View the existing routes of this application.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function admin(Request $request)
+    public function routes(Request $request)
     {
-        return view('laracrumbs::admin-layout', [
-            'title'   => 'Laracrumbs Administration',
-            'content' => 'Laracrumbs content goes here.',
+        return view('laracrumbs::admin.layout', [
+            'title'    => trans('laracrumbs::admin.title_full'),
+            'template' => 'laracrumbs::admin.routes',
+            'crumbs'   => \Laracrumbs\Models\Laracrumb::all(),
+            'routes'   => \Route::getRoutes(),
         ]);
     }
 }

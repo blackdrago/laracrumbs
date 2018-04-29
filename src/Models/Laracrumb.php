@@ -28,7 +28,7 @@ class Laracrumb extends Model
 
     /** @var array $fillable              The model attributes that can be mass-filled. */
     protected $fillable = [
-        'id', 'name', 'link', 'title', 'route', 'parent_id'
+        'id', 'route_identifier', 'text', 'link', 'title', 'route_name', 'parent_id'
     ];
 
     /**
@@ -68,7 +68,7 @@ class Laracrumb extends Model
     public function hasLink()
     {
         return !empty($this->attributes['link'])
-            || !empty($this->attributes['route']);
+            || !empty($this->attributes['route_name']);
     }
 
     /**
@@ -88,7 +88,17 @@ class Laracrumb extends Model
      */
     public function name()
     {
-        return UtilityService::translate($this->attributes['name']);
+        return UtilityService::translate($this->attributes['text']);
+    }
+
+    /**
+     * Get the laracrumb ID.
+     *
+     * @return integer
+     */
+    public function id()
+    {
+        return $this->attributes['id'];
     }
 
     /**
@@ -117,6 +127,6 @@ class Laracrumb extends Model
         if (!empty($this->attributes['link'])) {
             return $this->attributes['link'];
         }
-        return route($this->attributes['route']);
+        return route($this->attributes['route_name']);
     }
 }

@@ -2414,6 +2414,18 @@ body {
     padding: 0px;
     margin: 0px;
 }
+a:link {
+    color: #ff0000;
+}
+a:visited {
+    color: #990000;
+}
+a:hover {
+    color: #ffff00;
+}
+a:active {
+    color: #ff9000;
+}
 #laracrumbsWrapper {
     color: #cccccc;
     background-color: #000000;
