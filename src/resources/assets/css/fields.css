@@ -1,0 +1,15 @@
+/**
+ * Styles for Laracrumb files for the administrative views.
+ *
+ * @package Laracrumbs
+ */
+.laracrumbField {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+.laracrumbField label {
+    font-weight: bold;
+    display: block;
+}
+

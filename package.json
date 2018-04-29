@@ -11,5 +11,8 @@
     "devDependencies": {
         "cross-env": "^5.1",
         "laravel-mix": "^2.0"
+    },
+    "dependencies": {
+        "font-awesome": "^4.7.0"
     }
 }

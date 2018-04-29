@@ -1,0 +1,54 @@
+/**
+ * Styles for the administrative views like browse.
+ *
+ * @package Laracrumbs
+ */
+#laracrumbBrowse {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.laracrumbsBrowseRow {
+    display: block;
+    min-height: 3em;
+}
+.laracrumbsBrowseRow:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.laracrumbsBrowseName {
+    display: block;
+    float: left;
+    width: 48%;
+    text-align: right;
+    margin-right: 2%;
+}
+.laracrumbsBrowseUtils {
+    display: block;
+    float: left;
+    width: 50%;
+    text-align: left;
+}
+.laracrumbsUtilityButton {
+    padding: 0.25em 1em 0.25em 1em;
+    border-style: solid;
+    border-color: #330000;
+    border-width: 1px;
+}
+a.laracrumbsUtilityButton:link {
+    background-color: #cc0000;
+    color: #010101;
+}
+a.laracrumbsUtilityButton:visited {
+    background-color: #cc0000;
+    color: #010101;
+}
+a.laracrumbsUtilityButton:active {
+    background-color: transparent;
+    color: #ff0000;
+}
+a.laracrumbsUtilityButton:hover {
+    background-color: transparent;
+    color: #ff0000;
+}

@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
- * LaracrumbsController handles administrative and preview routes for Laracrumbs.
+ * LaracrumbsController handles administrative and view routes for Laracrumbs.
  */
 class LaracrumbsController extends Controller
 {
@@ -30,8 +30,22 @@ class LaracrumbsController extends Controller
     {
         return view('laracrumbs::layout', [
             'title'   => 'Laracrumbs Home',
-            'content' => 'Moose and Squirrel',
+            'content' => 'Laracrumbs content goes here.',
             'crumbs'  => \Laracrumbs\Models\Laracrumb::all(),
+        ]);
+    }
+
+    /**
+     * Administration.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin(Request $request)
+    {
+        return view('laracrumbs::admin-layout', [
+            'title'   => 'Laracrumbs Administration',
+            'content' => 'Laracrumbs content goes here.',
         ]);
     }
 }

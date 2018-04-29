@@ -1,10 +1,67 @@
 /**
  * @package Laracrumbs
  */
+body {
+    padding: 0px;
+    margin: 0px;
+}
 #laracrumbsWrapper {
     color: #cccccc;
     background-color: #000000;
     font-family: Geneva, sans-serif;
+    margin: 5em 0px 0px 0px;
+    padding: 0px;
+}
+#breadcrumbs {
+    display: block;
+    border-style: solid;
+    border-width: 1px 0px 1px 0px;
+    border-color: #cc0000;
+    padding: 0.75em;
+}
+#navbar {
+    display: block;
+    width: 100%;
+    background-color: #330000;
+    min-height: 3.5em;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    top: 0;
+}
+#navbar ul {
+    list-style-type: none;
+}
+#navbar ul li {
+    float: left;
+    margin-right: 0.5em;
+}
+#navbar ul li a {
+    padding: 1em;
+    font-size: 1em;
+    color: #ffffff;
+    text-decoration: none;
+}
+#navbar ul li a:link {
+    background-color: #990000;
+}
+#navbar ul li a:visited {
+    background-color: #330000;
+}
+#navbar ul li a:hover {
+    color: #000000;
+    background-color: #ff0000;
+    text-decoration: underline;
+}
+#navbar ul li a:active {
+    background-color: #cc0000;
+    text-decoration: underline;
+}
+#navbar:after {
+    clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 #laracrumbsAccessNav {
     position: absolute;
@@ -17,15 +74,86 @@
     display: inline;
 }
 #laracrumbsAccessNav a {
-    font-weight: 700;
+    font-weight: 500;
     display: block;
     margin: 5px 0;
     padding: 0.5em;
     position: absolute;
-    top: -150px;
+    top: -1500px;
     color: #ff0000;
     background-color: #000000;
 }
 #laracrumbsAccessNav a:focus{
     position: static;
 }
+#laracrumbsWrapper main, footer {
+    margin-left: 3em;
+    margin-right: 3em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+#laracrumbsWrapper header h1,
+#laracrumbsWrapper header h2 {
+    text-align: center
+}
+#laracrumbsWrapper footer {
+    text-align: center;
+    border-style: solid;
+    border-color: #660000;
+    border-width: 1px 0px 0px 0px;
+    padding: 0.5em 0em 0.5em 0em;
+}
+#laracrumbsWrapper footer .laracrumbsCopyright {
+    float: left;
+    display: block;
+}
+#laracrumbsWrapper footer .laracrumbsUpdate {
+    float: right;
+    display: block;
+}
+#laracrumbsWrapper footer:after {
+    clear: both;
+    content: "";
+    display: table;
+    clear: both;
+}
+#laracrumbsRepo {
+    display: block;
+}
+#navbar ul li a:link {
+    background-color: #990000;
+}
+#navbar ul li a:visited {
+    background-color: #330000;
+}
+#navbar ul li a:hover {
+    color: #000000;
+    background-color: #ff0000;
+    text-decoration: underline;
+}
+#navbar ul li a:active {
+    background-color: #cc0000;
+    text-decoration: underline;
+}
+#laracrumbsRepo a {
+    font-size: 4em;
+    padding: 4px;
+}
+#laracrumbsRepo a:link {
+    color: #ff0000;
+    background-color: transparent;
+}
+#laracrumbsRepo a:visited {
+    color: #ff0000;
+    background-color: transparent;
+}
+#laracrumbsRepo a:hover {
+    color: #000000;
+    background-color: #ff0000;
+    text-decoration: underline;
+}
+#laracrumbsRepo a:active {
+    background-color: #cc0000;
+    text-decoration: underline;
+}
+

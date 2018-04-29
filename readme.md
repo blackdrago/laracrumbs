@@ -11,9 +11,21 @@ Install via composer:
 composer require blackdrago/laracrumbs
 ```
 
-Then edit the application's config/app.php file and add this to the $providers array:
+Then edit the application's config/app.php file and add the following:
 ```php
-   Laracrumbs\ServiceProvider::class,
+    'providers' => [
+        // ...
+        Laracrumbs\ServiceProvider::class,
+        // ...
+    ],
+
+    // ...
+
+    'aliases' => [
+        // ...
+        'Laracrumbs' => Laracrumbs\Facades\Laracrumbs::class,
+        // ...
+    ],
 ```
 
 Run the following commands:
