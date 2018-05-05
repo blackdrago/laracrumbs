@@ -24,7 +24,7 @@ class Laracrumb extends Model
     public $incrementing = true;
 
     /** @var boolean $timestamps          Boolean flag for using timestamps. */
-    public $timestamps;
+    public $timestamps = false;
 
     /** @var array $fillable              The model attributes that can be mass-filled. */
     protected $fillable = [
