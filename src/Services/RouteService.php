@@ -15,6 +15,21 @@ use Laracrumbs\Models\Laracrumb;
 class RouteService
 {
     /**
+     * Given a route, return its full link.
+     *
+     * @param  \Illuminate\Routing\Route $route
+     * @return string
+     */
+    public static function getLink($route)
+    {
+        return route(
+            $route->getName(),
+            $route->parameters(),
+            config('laracrumbs.absolute_paths')
+        );
+    }
+
+    /**
      * Check if the given route has a laracrumb.
      *
      * @param  \Illuminate\Routing\Route $route

@@ -8,7 +8,9 @@
 namespace Laracrumbs;
 
 use Laracrumbs\Services\RouteService;
+use Laracrumbs\Services\UtilityService;
 use Laracrumbs\Models\Laracrumb;
+use Laracrumbs\Models\LaracrumbMap;
 
 /**
  * Conductor coordinates all aspects of Laracrumbs.
@@ -35,15 +37,37 @@ class Conductor
     /**
      * Render/display the laracrumbs for the given route.
      *
+     * @return \Illuminate\Http\Response
      */
     public function render()
     {
         $route = \Route::getCurrentRoute();
-        $identifier = RouteService::getIdentifier($route);
-        $laracrumb = Laracrumb::where('route_identifier', '=', $identifier)->first();
-        if (!is_null($laracrumb)) {
-            return view(config('laracrumbs.template'), ['laracrumb' => $laracrumb]);
+        $link = RouteService::getLink($route);
+        $laracrumb = Laracrumb::findByLink($link);
+        if (is_null($laracrumb)) {
+            // create new Laracrumb
+            $laracrumb = self::createLaracrumb($route, $link);
+            if (is_null($laracrumb)) {
+                return '&nbsp;';
+            }
         }
-        return '&nbsp;';
+        return Composer::render($laracrumb);
+    }
+
+    /**
+     * Create a new Laracrumb for a route.
+     *
+     * @param  \Illuminate\Routing\Route        $route
+     * @param  string                           $link
+     * @return \Laracrumbs\Models\Laracrumb|null
+     */
+    public static function createLaracrumb($route, $link)
+    {
+        $mapper = LaracrumbMap::where('route_name', '=', $route->getName())->first();
+        if (!is_null($mapper) && UtilityService::mappedFunctionExists($mapper->function_name)) {
+            $funcName = $mapper->function_name;
+            return $funcName($route, $link);
+        }
+        return null;
     }
 }

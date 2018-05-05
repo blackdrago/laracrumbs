@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the CreateLaracrumbsTable class.
+ * Contains the CreateLaracrumbMapsTable class.
  *
  * @package Laracrumbs\Database\Migrations
  */
@@ -10,19 +10,19 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Handles migrations for creating or destroying the Laracrumbs table in the database.
+ * Handles migrations for creating or destroying the Laracrumb Maps table in the database.
  *
  * Commands:
  *    php artisan migrate --path=vendor/blackdrago/laracrumbs/src/database/migrations/
  *    php artisan migrate:rollback --path=vendor/blackdrago/laracrumbs/src/database/migrations/
  */
-class CreateLaracrumbsTable extends Migration
+class CreateLaracrumbMapsTable extends Migration
 {
-    /** @var string $tableName         The name of the Laracrumbs table. */
-    protected $tableName = 'laracrumbs';
+    /** @var string $tableName         The name of the Laracrumbs Map table. */
+    protected $tableName = 'laracrumb_maps';
 
     /**
-     * Run Laracrumbs Migrations.
+     * Run Laracrumbs Map Migrations.
      */
     public function up()
     {
@@ -32,10 +32,8 @@ class CreateLaracrumbsTable extends Migration
         }
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('display_text');
-            $table->string('title')->nullable();
-            $table->string('link')->unique();
-            $table->integer('parent_id')->unsigned()->nullable();
+            $table->string('route_name')->unique();
+            $table->string('function_name');
         });
     }
 

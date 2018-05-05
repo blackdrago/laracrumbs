@@ -12,6 +12,22 @@ namespace Laracrumbs\Services;
 class UtilityService
 {
     /**
+     * Check if the given mapped function exits.
+     *
+     * @param  string  $funcName
+     * @return boolean
+     */
+    public static function mappedFunctionExists($funcName)
+    {
+        if (str_contains($funcName, '::')) {
+            $className = substr($funcName, 0, strpos($funcName, ':'));
+            $methodName = substr($funcName, strrpos($funcName, ':')+1);
+            return class_exists($className) && method_exists($className, $methodName);
+        }
+        return function_exits($funcName);
+    }
+
+    /**
      * Given a string, return the translated value. 
      *
      * NOTE: The translation shortcut name (e.g., 'laracrumbs',) can be changed via

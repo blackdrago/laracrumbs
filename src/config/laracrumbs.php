@@ -12,4 +12,7 @@ return [
     // breadcrumb template name
     'template' => 'laracrumbs::breadcrumbs.laracrumbs',
 
+    // use absolute paths for routes
+    'absolute_paths' => true,
+
 ];

@@ -28,7 +28,7 @@ class Laracrumb extends Model
 
     /** @var array $fillable              The model attributes that can be mass-filled. */
     protected $fillable = [
-        'id', 'route_identifier', 'text', 'link', 'title', 'route_name', 'parent_id'
+        'id', 'display_text', 'title', 'link', 'parent_id'
     ];
 
     /**
@@ -38,7 +38,7 @@ class Laracrumb extends Model
      */
     public function parent()
     {
-        if (!is_null($this->attributes['parent_id'])) {
+        if (!empty($this->attributes['parent_id'])) {
             return Laracrumb::where('id', '=', $this->attributes['parent_id'])->first();
         }
         return null;
@@ -54,7 +54,7 @@ class Laracrumb extends Model
     {
        $crumbs[] = $this;
        $parent = $this->parent();
-       if (!is_null($parent)) {
+       if (!empty($parent)) {
            return $parent->collectCrumbs($crumbs);
        }
        return array_reverse($crumbs);
@@ -67,8 +67,7 @@ class Laracrumb extends Model
      */
     public function hasLink()
     {
-        return !empty($this->attributes['link'])
-            || !empty($this->attributes['route_name']);
+        return !starts_with($this->attributes['link'], LARACRUMB_NOLINK_PREFIX);
     }
 
     /**
@@ -88,7 +87,7 @@ class Laracrumb extends Model
      */
     public function name()
     {
-        return UtilityService::translate($this->attributes['text']);
+        return UtilityService::translate($this->attributes['display_text']);
     }
 
     /**
@@ -104,12 +103,12 @@ class Laracrumb extends Model
     /**
      * Get the crumb title if it exits.
      *
-     * @return string|null
+     * @return string
      */
     public function title()
     {
         if (empty($this->attributes['title'])) {
-            return null;
+            return '';
         }
         return UtilityService::translate($this->attributes['title']);
     }
@@ -124,9 +123,16 @@ class Laracrumb extends Model
         if (!$this->hasLink()) {
             return null;
         }
-        if (!empty($this->attributes['link'])) {
-            return $this->attributes['link'];
-        }
-        return route($this->attributes['route_name']);
+        return $this->attributes['link'];
+    }
+
+    /**
+     * Find a Laracrumb by its link.
+     *
+     * @return \App\Models\Larcrumb|null
+     */
+    public static function findByLink($link)
+    {
+        return Laracrumb::where('link', '=', $link)->first();
     }
 }

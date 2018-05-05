@@ -41,14 +41,10 @@ class ServiceProvider extends BaseServiceProvider
         $this->loadViewsFrom($viewPath, $this->packageKey);
 
         // publishes language strings, config, and views for override capability
-        $publicPath  = $this->getSourcePath(['public']);
+        $publicPath = $this->getSourcePath(['public']);
         $configPath = $this->getSourcePath(['config', "{$this->packageKey}.php"]);
-        $this->publishes([
-            $publicPath => public_path("vendor/{$this->packageKey}"),
-        ], 'public');
-        $this->publishes([
-            $configPath => config_path("{$this->packageKey}.php"),
-        ], 'config');
+        $this->publishes([$publicPath => public_path("vendor/{$this->packageKey}")], 'public');
+        $this->publishes([$configPath => config_path("{$this->packageKey}.php")], 'config');
     }
 
     /**

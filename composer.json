@@ -13,6 +13,9 @@
         "laravel/framework": "^5.3"
     },
     "autoload": {
+        "files": [
+            "src/config/constants.php"
+        ],
         "psr-4": {
             "Laracrumbs\\": "src/"
         }
