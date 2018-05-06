@@ -133,6 +133,10 @@ class Laracrumb extends Model
      */
     public static function findByLink($link)
     {
-        return Laracrumb::where('link', '=', $link)->first();
+        $crumb = Laracrumb::where('link', '=', $link)->first();
+        if (!is_null($crumb)) {
+            return $crumb;
+        }
+        return Laracrumb::where('link', '=', UtilityService::createFauxLink($link))->first();
     }
 }

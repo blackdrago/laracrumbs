@@ -30,4 +30,15 @@ class LaracrumbMap extends Model
     protected $fillable = [
         'id', 'route_name', 'function_name'
     ];
+
+    /**
+     * Find a map by route name.
+     *
+     * @param  string $routeName
+     * @return \Laracrumbs\Models\LaracrumbMap|null
+     */
+    public static function findByRoute($routeName)
+    {
+        return LaracrumbMap::where('route_name', '=', $routeName)->first();
+    }
 }

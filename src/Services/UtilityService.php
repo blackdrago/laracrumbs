@@ -12,6 +12,18 @@ namespace Laracrumbs\Services;
 class UtilityService
 {
     /**
+     * Create a new 'faux-link' for a no-link Laracrumb.
+     *
+     * @param  string $text
+     * @param  mixed  $pid
+     * @return string
+     */
+    public static function createFauxLink($text, $pid)
+    {
+        return LARACRUMB_NOLINK_PREFIX . $text . $pid;        
+    }
+
+    /**
      * Check if the given mapped function exits.
      *
      * @param  string  $funcName

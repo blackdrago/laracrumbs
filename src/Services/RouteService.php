@@ -30,6 +30,18 @@ class RouteService
     }
 
     /**
+     * Given a name and optional parameters, return the full URL.
+     *
+     * @param  string $routeName
+     * @param  array  $parameters  (optional)
+     * @return string
+     */
+    public static function getURL($routeName, $parameters = [])
+    {
+        return route($routeName, $parameters, config('laracrumbs.absolute_paths'));
+    }
+
+    /**
      * Check if the given route has a laracrumb.
      *
      * @param  \Illuminate\Routing\Route $route
