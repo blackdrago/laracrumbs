@@ -31,9 +31,13 @@ Then edit the application's config/app.php file and add the following:
 
 Run the following commands:
 ```
-php artisan vendor:publish --provider="Laracrumbs\ServiceProvider" --force
+php artisan config:cache
+php artisan vendor:publish --provider="Laracrumbs\ServiceProvider" --tag=config
+composer dump-autoload
 php artisan migrate --path=vendor/blackdrago/laracrumbs/src/database/migrations/
 ```
+
+Create a file called **routes/laracrumbs.php** and define the application's Laracrumbs. (See below.)
 
 ## 2.2 Configuration
 Laracrumbs have several configuration settings, including:
@@ -81,7 +85,41 @@ Laracrumbs::register([
 ## 3.2 Create a complex Laracrumb
 Routes with parameters require complex Laracrumbs. Since a route with at least one parameter can produce multiple URLs, complex Laracrumbs require a mapping function.
 
-*Example of Laracrumb mapping coming soon.*
+Example of a complex Laracrumb mapping function for a Category model, which has Home as a parent:
+```php
+function category_laracrumb($route, $link)
+{
+    $params = $route->parameters();
+    $category = \App\Models\Category::find((int)($params['id']));
+    if (!is_null($category)) {
+        $laracrumb = new \Laracrumbs\Models\Laracrumb();
+        $laracrumb->link = $link;
+        $laracrumb->display_text = $category->name;
+        $laracrumb->parent_id = \Laracrumbs::findParentId('home');
+        $laracrumb->save();
+        return $laracrumb;
+    }
+    return null;
+}
+```
+
+Another example, for a Product model. It's parent is a Category specified by $product->category_id.
+```php
+function product_laracrumb($route, $link)
+{
+    $params = $route->parameters();
+    $product = \App\Models\Product::find((int)($params['id']));
+    if (!is_null($product)) {
+        $laracrumb = new \Laracrumbs\Models\Laracrumb();
+        $laracrumb->link = $link;
+        $laracrumb->display_text = $product->name;
+        $laracrumb->parent_id = \Laracrumbs::findParentId('category-view', ['id' => $product->category_id]);
+        $laracrumb->save();
+        return $laracrumb;
+    }
+    return null;
+}
+```
 
 ## 3.3 Create a non-link Laracrumb
 A non-link laracrumb does not have a route or a link associated with it, but rather serves as a marker or category. 

@@ -15,7 +15,7 @@ return [
     'translation_key' => '',
 
     // breadcrumb template name
-    'template' => 'laracrumbs::breadcrumbs.laracrumbs',
+    'template' => 'laracrumbs::templates.laracrumbs',
 
     // use absolute paths for routes
     'absolute_paths' => true,
