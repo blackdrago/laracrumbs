@@ -105,7 +105,7 @@ class Conductor
      * @param array   $settings
      * @param boolean $overwrite
      */
-    protected static function registerWithoutLink($settings)
+    protected static function registerWithoutLink($settings, $overwrite = false)
     {
         $fauxLink = UtilityService::createFauxLink(
             $settings['display_text'], 
@@ -115,7 +115,7 @@ class Conductor
         $laracrumb = Laracrumb::findByLink($fauxLink);
         if (!is_null($laracrumb) && $overwrite) {
             $laracrumb->delete();
-        } else {
+        } elseif (!is_null($laracrumb)) {
             return;
         }
         Composer::create($settings);
