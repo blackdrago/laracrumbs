@@ -85,6 +85,30 @@ Laracrumbs::register([
 ## 3.2 Create a complex Laracrumb
 Routes with parameters require complex Laracrumbs. Since a route with at least one parameter can produce multiple URLs, complex Laracrumbs require a mapping function.
 
+For example, assume there are two models: Category and Product. There are also two corresponding 'detail view' routes. Registering them will look like this:
+```php
+Laracrumbs::register([
+    'route_name' => 'category-view',
+    'map' => 'category_laracrumb'
+]);
+Laracrumbs::register([
+    'route_name' => 'product-view',
+    'map' => 'product_laracrumb'
+]);
+```
+
+If it's preferred, a function from within a class can be utilized instead:
+```php
+Laracrumbs::register([
+    'route_name' => 'category-view',
+    'map' => '\App\Models\Category::laracrumb'
+]);
+Laracrumbs::register([
+    'route_name' => 'product-view',
+    'map' => '\App\Models\Product::laracrumb'
+]);
+```
+
 Example of a complex Laracrumb mapping function for a Category model, which has Home as a parent:
 ```php
 function category_laracrumb($route, $link)
