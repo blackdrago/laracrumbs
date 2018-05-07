@@ -93,6 +93,6 @@ Laracrumbs::register([
 ]);
 Laracrumbs::register([
     'display_text' => 'Markup Tutorial',
-    'parent_id' => Laracrumb::findByLink('Getting Started')->parent_id
+    'parent_id' => Laracrumbs::findParentIdByDisplayText('Getting Started')
 ]);
 ```

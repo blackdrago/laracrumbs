@@ -43,7 +43,7 @@ class Conductor
     {
         $route = \Route::getCurrentRoute();
         $link = RouteService::getLink($route);
-        $laracrumb = self::findOrCreate($route, $link);
+        $laracrumb = Composer::findOrCreateByRoute($route);
         if (is_null($laracrumb)) {
             return '&nbsp;';
         }
@@ -59,55 +59,24 @@ class Conductor
      */
     public static function findParentId($routeName, $params = [])
     {
-       $url = RouteService::getURL($routeName, $params);
-       $laracrumb = Laracumb::findByLink($url);
-       if (is_null($laracrumb)) {
-            $mapper = LaracrumbMap::where('route_name', '=', $routeName)->first();
-            if (!is_null($mapper) && UtilityService::mappedFunctionExists($mapper->function_name)) {
-                $funcName = $mapper->function_name;
-                return $funcName($route, $link);
-            } else {
-                return false;
-            }
+       $laracrumb = Composer::findOrCreate($routeName, $params);
+       if (!is_null($laracrumb)) {
+            return $laracrumb->id;
        }
-       return $laracrumb->id;
+       return null;
     }
 
     /**
-     * Find a Laracrumb. If it doesn't exist, try to create it.
+     * Find a laracrumb id by its display text.
      *
-     * @param  \Illuminate\Routing\Route        $route
-     * @param  string                           $link
-     * @return \Laracrumbs\Models\Laracrumb|null
+     * @param  string       $text
+     * @return integer|null
      */
-    public static function findOrCreate($route, $link)
+    public static function findParentIdByDisplayText($text)
     {
-        $laracrumb = Laracrumb::findByLink($link);
-        if (is_null($laracrumb)) {
-            $mapper = LaracrumbMap::where('route_name', '=', $route->getName())->first();
-            if (!is_null($mapper) && UtilityService::mappedFunctionExists($mapper->function_name)) {
-                $funcName = $mapper->function_name;
-                return $funcName($route, $link);
-            }
-        } else {
-            return $laracrumb;
-        }
-        return null;
-    }
-
-    /**
-     * Create a new Laracrumb for a route.
-     *
-     * @param  \Illuminate\Routing\Route        $route
-     * @param  string                           $link
-     * @return \Laracrumbs\Models\Laracrumb|null
-     */
-    public static function createLaracrumb($route, $link)
-    {
-        $mapper = LaracrumbMap::where('route_name', '=', $route->getName())->first();
-        if (!is_null($mapper) && UtilityService::mappedFunctionExists($mapper->function_name)) {
-            $funcName = $mapper->function_name;
-            return $funcName($route, $link);
+        $laracrumb = Laracrumb::findByDisplayText($text);
+        if (!is_null($laracrumb)) {
+            return $laracrumb->id;
         }
         return null;
     }
@@ -122,7 +91,7 @@ class Conductor
     public static function register($settings, $overwrite = false)
     {
         if (!empty($settings['map'])) {
-            self::registerComplex($params);
+            self::registerComplex($settings);
         } elseif (empty($settings['link'])) {
             self::registerWithoutLink($settings, $overwrite);
         } else {
@@ -149,7 +118,7 @@ class Conductor
         } else {
             return;
         }
-        self::createNew($settings);
+        Composer::create($settings);
     }
 
     /**
@@ -166,7 +135,7 @@ class Conductor
         } elseif (!is_null($laracrumb)) {
             return;
         }
-        self::createNew($settings);
+        Composer::create($settings);
     }
 
     /**
@@ -183,34 +152,6 @@ class Conductor
         } elseif (!is_null($map)) {
             return;
         }
-        self::createNewMap($settings['route_name'], $settings['map']);
-    }
-
-    /**
-     * Create a new Laracrumb.
-     *
-     * @param string $routeName
-     * @param string $funcName
-     */
-    protected static function createNewMap($routeName, $funcName)
-    {
-        $map = new LaracrumbMap();
-        $map->route_name = $routeName;
-        $map->function_name = $funcName;
-        $map->save();
-    }
-
-    /**
-     * Create a new Laracrumb.
-     *
-     * @param array $settings
-     */
-    protected static function createNew($settings)
-    {
-        $crumb = new Laracrumb();
-        foreach ($settings as $attr => $value) {
-            $crumb->$attr = $value;
-        }
-        $crumb->save();
+        Composer::createMap($settings['route_name'], $settings['map']);
     }
 }

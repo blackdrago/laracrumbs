@@ -129,14 +129,24 @@ class Laracrumb extends Model
     /**
      * Find a Laracrumb by its link.
      *
+     * @param  string                    $link
      * @return \App\Models\Larcrumb|null
      */
     public static function findByLink($link)
     {
-        $crumb = Laracrumb::where('link', '=', $link)->first();
-        if (!is_null($crumb)) {
-            return $crumb;
-        }
-        return Laracrumb::where('link', '=', UtilityService::createFauxLink($link))->first();
+        return Laracrumb::where('link', '=', $link)->first();
+    }
+
+    /**
+     * Find a Laracrumb by its display text.
+     *
+     * Warning: Display text is not unique across Laracrumbs.
+     *
+     * @param  string                   $text
+     * @return \App\Models\Larcrumb|null
+     */
+    public static function findByDisplayText($text)
+    {
+        return Laracrumb::where('display_text', '=', $text)->first();
     }
 }

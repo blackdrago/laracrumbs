@@ -45,6 +45,9 @@ class ServiceProvider extends BaseServiceProvider
         $configPath = $this->getSourcePath(['config', "{$this->packageKey}.php"]);
         $this->publishes([$publicPath => public_path("vendor/{$this->packageKey}")], 'public');
         $this->publishes([$configPath => config_path("{$this->packageKey}.php")], 'config');
+
+        // register the laracrumbs
+        $this->registerLaracrumbs();
     }
 
     /**
@@ -58,6 +61,21 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(Conductor::class, function () {
             return new Conductor();
         });
+    }
+
+    /**
+     * Register the custom Laracrumbs for this application.
+     */
+    public function registerLaracrumbs()
+    {
+        $files = config('laracrumbs.files');
+        if (!empty($files)) {
+            foreach ($files as $file) {
+                if (file_exists($file)) {
+                    require $file;
+                }
+            }
+        }
     }
 
     /**

@@ -6,6 +6,11 @@
  */
 
 return [
+    // the laracrumb registration files
+    'files' => [
+        base_path('routes/laracrumbs.php')
+    ],
+
     // language pack key (e.g., 'laracrumbs')
     'translation_key' => '',
 
