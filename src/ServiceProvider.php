@@ -55,8 +55,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->loadRoutesFrom($this->getSourcePath(['routes', 'web.php']));
-
         // register Laracrumbs Conductor
         $this->app->singleton(Conductor::class, function () {
             return new Conductor();
