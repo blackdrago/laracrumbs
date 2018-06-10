@@ -39,7 +39,7 @@ class Conductor
      *
      * @return \Illuminate\Http\Response
      */
-    public function render()
+    public static function render()
     {
         $route = \Route::getCurrentRoute();
         $link = RouteService::getLink($route);
