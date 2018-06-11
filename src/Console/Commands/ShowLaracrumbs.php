@@ -40,8 +40,6 @@ class ShowLaracrumbs extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->laracrumbs = Laracrumb::all();
-        $this->maps = LaracrumbMap::all();
     }
 
     /**
@@ -51,6 +49,8 @@ class ShowLaracrumbs extends Command
      */
     public function handle()
     {
+        $this->laracrumbs = Laracrumb::all();
+        $this->maps = LaracrumbMap::all();
         if (count($this->laracrumbs) == 0 && count($this->maps) == 0) {
            return $this->error("There are currently no Laracrumbs saved nor mapped Laracrumbs for routes.");
         }
