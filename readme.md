@@ -53,17 +53,39 @@ There are three kinds of Laracrumbs:
 2. **Complex**: A breadcrumb for a route with at least one parameter.
 3. **Non-link**: A breadcrumb that serves as a category or marker but has no link.
 
+The best way to create these is by making a new Database Seeder that can be packaged with the application:
+
+```
+php artisan make:seeder LaracrumbsSeeder
+```
+
+This will create the file *database/seeds/LaracrumbSeeder.php* where various Laracrumbs registrations can be made. Once completed, simply run the seeder command:
+
+```
+php artisan db:seed --class=LaracrumbsSeeder
+```
+
+*Note*: If you get an error about Laravel not finding the seeder class, try running the following command:
+
+```
+composer dump-autoload
+```
+
+Then run the seeder command again.
+
+An alternate method for handing Laracrumbs registeration is by creating a *Laracrumbs registration file* (e.g., routes/laracrumbs.php) and updating the files settings of *config/laracrumbs.php* to point to this file.
+
 ## 3.1 Create a basic Laracrumb
 A basic Laracrumb can be for a link or a route with no parameters.
 
 Routes:
 ```php
 Laracrumbs::register([
-    'link' => route('home'),
+    'link' => url(route('home')),
     'display_text' => 'Home',
 ]);
 Laracrumbs::register([
-    'link' => route('browse'),
+    'link' => url(route('browse')),
     'display_text' => 'Browse',
     'parent_id' => Laracrumb::findByLink(route('home'))->parent_id
 ]);
@@ -157,4 +179,35 @@ Laracrumbs::register([
     'display_text' => 'Markup Tutorial',
     'parent_id' => Laracrumbs::findParentIdByDisplayText('Getting Started')
 ]);
+```
+
+# 4. Show Laracrumbs
+If you don't have direct database access (or you don't want to use it), you can use the following console command to detect currently registered Laracrumbs:
+
+```
+php artisan laracrumbs:show
+```
+
+This will display all the existing/saved Laracrumbs as well as all the registered route maps.
+
+# 5. Configuration Settings
+Once published, there will be *config/laracrumbs.php* file in your application. These settings enable you to customize Laracrumbs.
+
+## 5.1 Service Configuration Settings
+- files: one or more files that contain Laracrumb registration (if they exist)
+- translation_key: language pack/domain key for localization (if it exists)
+- template: the name of the Blade template to render Laracrumbs with
+- absolute_paths: boolean flag that indicates if absolute URLs are used
+
+## 5.2 View Configuration Settings
+- separator: the HTML markup that appears between laracrumbs
+- class_wrapper: the CSS class that wraps the full laracrumbs display
+- class_item: the CSS class that wraps the individual laracrumb
+- class_list: the CSS class that wraps the laracrumb list
+- class_list_item: the CSS class that wraps each laracrumb list item
+
+Note that the separator can be any HTML markup. By default it's the raquo (&raquo;) HTML special character. If your application uses something like FontAwesome, however, you can change the separator to look like this:
+
+```php
+    'separator' =&gt; '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
 ```

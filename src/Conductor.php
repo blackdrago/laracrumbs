@@ -20,21 +20,6 @@ use Laracrumbs\Models\LaracrumbMap;
 class Conductor
 {
     /**
-     * Get the field value.
-     *
-     * @param \Laracrumbs\Models\Laracrumb $laracrumb
-     * @param  string                       $field
-     * @return string
-     */
-    public static function fieldValue($laracrumb, $field)
-    {
-        if (empty($laracrumb)) {
-            return '';
-        }
-        return old($field, $laracrumb->$field);
-    }
-
-    /**
      * Render/display the laracrumbs for the given route.
      *
      * @return \Illuminate\Http\Response

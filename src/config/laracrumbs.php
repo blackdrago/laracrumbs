@@ -21,7 +21,7 @@ return [
     'absolute_paths' => true,
 
     // view-related configurations
-    'separator' => '-&gt;',
+    'separator' => '&raquo;',
     'class_wrapper' => 'laracrumbs-bar',
     'class_item' => 'laracrumbs-section',
     'class_list' => 'laracrumb-list',

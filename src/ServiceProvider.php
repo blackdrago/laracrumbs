@@ -25,6 +25,11 @@ class ServiceProvider extends BaseServiceProvider
     /** @var string $packageKey         The package key for translations, views, etc. */
     private $packageKey = 'laracrumbs';
 
+    /** @var array $commands            An array of console commands. */
+    protected $commands = [
+        'Laracrumbs\Console\Commands\ShowLaracrumbs'
+    ];
+
     /**
      * Bootstrap services for Laracrumbs.
      */
@@ -62,6 +67,9 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(Conductor::class, function () {
             return new Conductor();
         });
+
+        // register the Laracrumbs console commands
+        $this->commands($this->commands);
     }
 
     /**
