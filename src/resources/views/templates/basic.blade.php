@@ -3,5 +3,5 @@
         'crumb'    => $crumb,
         'linkAttr' => !empty($settings) ? $settings : []
     ])
-    @if (!$loop->last) {!! $separator or '&gt;' !!} @endif
+    @if (!$loop->last) {!! config('laracrumbs.separator') !!} @endif
 @endforeach

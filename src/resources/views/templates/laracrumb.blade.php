@@ -3,4 +3,3 @@
 @else
 {{ $crumb->name() }}
 @endif
-

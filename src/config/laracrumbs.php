@@ -20,4 +20,11 @@ return [
     // use absolute paths for routes
     'absolute_paths' => true,
 
+    // view-related configurations
+    'separator' => '-&gt;',
+    'class_wrapper' => 'laracrumbs-bar',
+    'class_item' => 'laracrumbs-section',
+    'class_list' => 'laracrumb-list',
+    'class_list_item' => 'laracrumb-list-item',
+
 ];
