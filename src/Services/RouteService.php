@@ -22,11 +22,11 @@ class RouteService
      */
     public static function getLink($route)
     {
-        return route(
+        return url(route(
             $route->getName(),
             $route->parameters(),
             config('laracrumbs.absolute_paths')
-        );
+        ));
     }
 
     /**

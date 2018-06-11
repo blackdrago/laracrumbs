@@ -46,6 +46,9 @@ class ServiceProvider extends BaseServiceProvider
         $this->publishes([$publicPath => public_path("vendor/{$this->packageKey}")], 'public');
         $this->publishes([$configPath => config_path("{$this->packageKey}.php")], 'config');
 
+        // merge configuration values
+        $this->mergeConfigFrom($configPath, $this->packageKey);
+
         // register the laracrumbs
         $this->registerLaracrumbs();
     }
