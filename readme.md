@@ -1,12 +1,12 @@
 # Laracrumbs
 A database-driven breadcrumbs package for Laravel.
 
-# 1 Requirements
+# 1. Requirements
 - Laravel 5.6 (not tested with Laravel 5.0 to Laravel 5.5)
 - Laravel Mix
 
-# 2 Installation
-## 2.1 Install by Composer
+# 2. Installation
+## 2.1. Install by Composer
 Install via composer:
 ```
 composer require blackdrago/laracrumbs
@@ -39,14 +39,14 @@ php artisan migrate --path=vendor/blackdrago/laracrumbs/src/database/migrations/
 
 Create a file called **routes/laracrumbs.php** and define the application's Laracrumbs. (See below.)
 
-## 2.2 Configuration
+## 2.2. Configuration
 Laracrumbs have several configuration settings, including:
 
 - translation_key: a package prefix for translating language key values
 - template: the name of the Blade template to use for breadcrumbs
 - absolute_paths: boolean flag that indicates if absolute paths are used for routes
 
-# 3 Creating Laracrumbs
+# 3. Creating Laracrumbs
 There are three kinds of Laracrumbs:
 
 1. **Basic**: A breadcrumb for a link or a route with no parameters.
@@ -75,7 +75,7 @@ Then run the seeder command again.
 
 An alternate method for handing Laracrumbs registeration is by creating a *Laracrumbs registration file* (e.g., routes/laracrumbs.php) and updating the files settings of *config/laracrumbs.php* to point to this file.
 
-## 3.1 Create a basic Laracrumb
+## 3.1. Create a basic Laracrumb
 A basic Laracrumb can be for a link or a route with no parameters.
 
 Routes:
@@ -104,7 +104,7 @@ Laracrumbs::register([
 ]);
 ```
 
-## 3.2 Create a complex Laracrumb
+## 3.2. Create a complex Laracrumb
 Routes with parameters require complex Laracrumbs. Since a route with at least one parameter can produce multiple URLs, complex Laracrumbs require a mapping function.
 
 For example, assume there are two models: Category and Product. There are also two corresponding 'detail view' routes. Registering them will look like this:
@@ -167,7 +167,7 @@ function product_laracrumb($route, $link)
 }
 ```
 
-## 3.3 Create a non-link Laracrumb
+## 3.3. Create a non-link Laracrumb
 A non-link laracrumb does not have a route or a link associated with it, but rather serves as a marker or category. 
 
 Example of non-link Laracrumb:
@@ -193,13 +193,13 @@ This will display all the existing/saved Laracrumbs as well as all the registere
 # 5. Configuration Settings
 Once published, there will be *config/laracrumbs.php* file in your application. These settings enable you to customize Laracrumbs.
 
-## 5.1 Service Configuration Settings
+## 5.1. Service Configuration Settings
 - files: one or more files that contain Laracrumb registration (if they exist)
 - translation_key: language pack/domain key for localization (if it exists)
 - template: the name of the Blade template to render Laracrumbs with
 - absolute_paths: boolean flag that indicates if absolute URLs are used
 
-## 5.2 View Configuration Settings
+## 5.2. View Configuration Settings
 - separator: the HTML markup that appears between laracrumbs
 - class_wrapper: the CSS class that wraps the full laracrumbs display
 - class_item: the CSS class that wraps the individual laracrumb
@@ -209,5 +209,5 @@ Once published, there will be *config/laracrumbs.php* file in your application. 
 Note that the separator can be any HTML markup. By default it's the raquo (&raquo;) HTML special character. If your application uses something like FontAwesome, however, you can change the separator to look like this:
 
 ```php
-    'separator' =&gt; '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
+    'separator' => '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
 ```
